@@ -1,28 +1,28 @@
 #!/bin/bash
 
-echo "🚀 Sätter upp FastMCP DateTime Server..."
+echo "🚀 Setting up FastMCP Server..."
 
 # Skapa virtual environment om det inte redan finns
 if [ ! -d "venv" ]; then
-    echo "📦 Skapar virtual environment..."
+    echo "📦 Creating virtual environment..."
     python3 -m venv venv
 else
-    echo "✅ Virtual environment finns redan"
+    echo "✅ Virtual environment already exists"
 fi
 
 # Aktivera virtual environment
-echo "🔧 Aktiverar virtual environment..."
+echo "🔧 Activating virtual environment..."
 source venv/bin/activate
 
 # Installera dependencies
-echo "📥 Installerar dependencies..."
+echo "📥 Installing dependencies..."
 pip install -r requirements.txt
 
-echo "✅ Setup klart!"
+echo "✅ Setup complete!"
 echo ""
-echo "För att starta servern:"
+echo "To start the server:"
 echo "  source venv/bin/activate"
 echo "  python server.py"
 echo ""
-echo "För att stänga av virtual environment:"
+echo "To deactivate the virtual environment:"
 echo "  deactivate" 
