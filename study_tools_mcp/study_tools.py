@@ -58,3 +58,23 @@ def create_week_plan(
         "daily_plan": daily_plan,
         "summary": f"Study about {hours_per_day} hours per day",
     }
+
+@mcp.tool
+def break_down_task(
+    task_name: Annotated[str, Field(description="Task name")],
+    task_type: Annotated[str, Field(description="Task type, e.g. essay or exam")],
+    estimated_hours: Annotated[float, Field(description="Estimated total hours", ge=0)],
+) -> dict:
+    templates = {
+        "essay":["Understand instructions", "Research", "Outline", "Draft", "Revise", "Submit"],
+        "exam":["Review topics", "Find weak areas", "Practice", "Repeat", "Final review"],
+        "presentation":["Research", "Outline", "Make slides", "Practice", "Refine"],
+        "coding assignement":["Read requirements", "Plan", "Code", "Test", "Document"],
+    }
+    steps = templates.get(task_type.lower(), ["Understand task", "Plan", "Do work", "Review", "Submit"])
+    hours_per_step = round(estimated_hours /len(steps), 2) if steps else 0
+    return {
+        "task_name": task_name,
+        "steps": [{"step": s, "hours": hours_per_step} for s in steps],
+        "summary": f"{task_name} was split into {len(steps)} steps.",
+    }
