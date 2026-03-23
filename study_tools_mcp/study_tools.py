@@ -43,3 +43,18 @@ def estimate_study_sessions(
         "summary": f"{task_name} needs about {sessions_needed} study sessions.", 
     }
 
+@mcp.tool
+def create_week_plan(
+    total_tasks: Annotated[int, Field(description="Number of taks this week", gt=0)],
+    available_hours_this_week: Annotated[float, Field(description="Available study hours this week", ge=0)],
+    study_days_per_week: Annotated[int, Field(description="Study days this week", ge=1, le=7)],
+) -> dict: 
+    hours_per_day = round(available_hours_this_week / study_days_per_week, 2)
+    hours_per_task = round(available_hours_this_week / total_tasks, 2)
+    daily_plan = [{"day": i, "hours": hours_per_day} for i in range(1, study_days_per_week + 1)]
+    return {
+        "hours_per_day": hours_per_day,
+        "hours_per_task": hours_per_task,
+        "daily_plan": daily_plan,
+        "summary": f"Study about {hours_per_day} hours per day",
+    }
