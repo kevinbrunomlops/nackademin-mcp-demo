@@ -17,5 +17,5 @@ uv sync
 Make sure the virtual environment is activated and run from the project root:
 
 ```bash
-uv run python -m calculator_mcp.calculator_mcp
+uv run python -m study_tools_mcp.study_tools
 ```
