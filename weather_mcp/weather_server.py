@@ -20,9 +20,9 @@ async def get_temperature(
 
 
 if __name__ == "__main__":
-    import asyncio
-
-    asyncio.run(
+  import asyncio
+  
+  asyncio.run(
         mcp.run_http_async(
             host="0.0.0.0",
             port=8002,

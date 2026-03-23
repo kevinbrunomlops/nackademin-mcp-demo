@@ -29,12 +29,12 @@ def divide_numbers(
 
 
 if __name__ == "__main__":
-    import asyncio
+   import asyncio
 
-    asyncio.run(
-        mcp.run_http_async(
-            host="0.0.0.0",
-            port=8001,
-            log_level="warning",
-        )
-    )
+   asyncio.run(
+       mcp.run_http_async(
+           host="0.0.0.0",
+           port=8001,
+           log_level="warning",
+       )
+   )

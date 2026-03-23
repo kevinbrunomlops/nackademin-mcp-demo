@@ -1,4 +1,4 @@
-fastmcp>=3.0.2
+0fastmcp>=3.0.2
 httpx
 pytz
 markdown
