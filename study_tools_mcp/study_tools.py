@@ -103,7 +103,7 @@ def risk_check_deadline(
 
 if __name__ == "__main__":
     import asyncio
-    asyncio run(
+    asyncio.run(
         mcp.run_http_async(
             host="127.0.0.1",
             port=8003,
