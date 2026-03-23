@@ -78,3 +78,35 @@ def break_down_task(
         "steps": [{"step": s, "hours": hours_per_step} for s in steps],
         "summary": f"{task_name} was split into {len(steps)} steps.",
     }
+
+
+@mcp.tool
+def risk_check_deadline(
+    task_name: Annotated[str, Field(description="Task name")],
+    days_left: Annotated[int, Field(description="Days until deadline", ge=0)],
+    hours_remaining: Annotated[float, Field(description="Hours still nededed", ge=0)],
+    available_hours_per_day: Annotated[float, Field(description="Available hours per day", ge=0)],
+) -> dict:
+    total_available = days_left * available_hours_per_day
+    if hours_remaining == 0:
+        risk_level, warning = "low", f"{task_name} is basically done."
+    elif total_available >= hours_remaining:
+        risk_level, warning = ("medium", f"{task_name} is possible, but deadline is close") if days_left <= 1 else ("low", f"{task_name} looks manageable.")
+    else:
+        risk_level, warning = "high", f"{task_name} risks missing the deadline."
+    return {
+        "task_name": task_name,
+        "risk_level": risk_level,
+        "warning": warning,
+        "total_available_hours": round(total_available, 2),
+    }
+
+if __name__ == "__main__":
+    import asyncio
+    asyncio run(
+        mcp.run_http_async(
+            host="127.0.0.1",
+            port=8003,
+            log_level="warning",
+        )
+    )
